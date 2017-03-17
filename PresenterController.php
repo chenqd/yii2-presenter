@@ -33,11 +33,11 @@ class PresenterController extends Controller
         if (Yii::getAlias('@common')) {
             //advanced template
             $this->base_path = '@common/models/presenters';
-            $this->namespace = 'common/models/presenters';
+            $this->namespace = 'common\models\presenters';
         } else {
             //basic template
             $this->base_path = '@app/models/presenters';
-            $this->namespace = 'app/models/presenters';
+            $this->namespace = 'app\models\presenters';
         }
     }
     
