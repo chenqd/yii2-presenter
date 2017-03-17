@@ -1,0 +1,16 @@
+{
+    "name": "chenqd/yii2-presenter",
+    "description": "presenter and helper console command for yii2",
+    "authors": [
+        {
+            "name": "asmodai",
+            "email": "a19851234@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "chenqd\\presenter\\": "" }
+    },
+    "require": {
+        "php": ">=5.5.9"
+    }
+}
