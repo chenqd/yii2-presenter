@@ -1,8 +1,10 @@
 # yii2-presenter
  
  参考 [laracasts/presenter](https://github.com/laracasts/Presenter) 实现presenter层,
- 调整了调用方式并新增了一个脚手架工具
+ 调整了调用方式并新增了一个脚手架工具。
  
+ 个人理解Presenter是提供给view针对model的一种横向扩展方式,
+ 就实现来说是对behavior的简化版。
  
 ## 使用方式
 
@@ -18,6 +20,11 @@ presenter例子:
         public function fullName()
         {
             return $this->first . ' ' . $this->last;
+        }
+        
+        public function first()
+        {
+            return ucfirst($this->entity->first);
         }
     
     }
@@ -44,6 +51,7 @@ view调用: (实现很简单可以简单翻阅下源码)
 or
 <h1>hello {{ $user->present('fullName') }}！</h1>
 hello {{ $user->present('first') }}！
+hello {{ $user->present()->first }}！
 ```
 
 ## 脚手架
