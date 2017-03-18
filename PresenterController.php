@@ -66,7 +66,7 @@ class PresenterController extends Controller
 
     public function create($name)
     {
-        if (!ends_with($name, 'Presenter')) {
+        if (substr($name, -9) !== 'Presenter') {
             $name = $name . 'Presenter';
         }
 
