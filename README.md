@@ -132,4 +132,7 @@ class User extend ActiveRecord
 }
 ```
 
+## TODO
+-[ ] 多model关联的实现方案
+-[ ] 由Present发起调用的实现方案
 

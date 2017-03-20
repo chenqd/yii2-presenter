@@ -30,6 +30,9 @@ trait PresentableTrait
             $this->_presenter_container[$presenter_key] = \Yii::createObject($class, [$this]);
         }
 
+        if (is_null($key)) {
+            return $this->_presenter_container[$presenter_key];
+        }
         return ArrayHelper::getValue($this->_presenter_container[$presenter_key], $key);
     }
 
