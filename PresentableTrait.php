@@ -12,7 +12,8 @@ trait PresentableTrait
     public function presenterMap()
     {
         if (!$this->presenter) {
-            $this->presenter = __NAMESPACE__.'\\presenters\\'.substr(strrchr(__CLASS__, "\\"), 1).'Presenter';
+            $className = strrchr(__CLASS__, "\\");
+            $this->presenter = substr(__CLASS__, 0, -strlen($className)).'\\presenters'.$className.'Presenter';
         }
         return [
             'default' => $this->presenter
