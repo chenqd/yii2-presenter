@@ -13,7 +13,8 @@ presenter例子:
     use chenqd\presenter\BasePresenter;
     
     /**
-    * @mix \app\models\User
+    * @mixin \app\models\User
+    * @property \app\models\User $entity
     */
     class UserPresenter extends BasePresenter {
     
@@ -72,8 +73,8 @@ return [
 'controllerMap' => [
     'presenter' => [
         'class' => \chenqd\presenter\PresenterController::class,
-        'base_path' => '@common/models/presenters',
-        'namespace' => 'common/models/presenters',
+        'base_path' => '@common/models',
+        'namespace' => 'common\models',
     ],
 ],
 ```

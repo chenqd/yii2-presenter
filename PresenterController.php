@@ -32,12 +32,12 @@ class PresenterController extends Controller
     {
         if (Yii::getAlias('@common')) {
             //advanced template
-            $this->base_path = '@common/models/presenters';
-            $this->namespace = 'common\models\presenters';
+            $this->base_path = '@common/models';
+            $this->namespace = 'common\models';
         } else {
             //basic template
-            $this->base_path = '@app/models/presenters';
-            $this->namespace = 'app\models\presenters';
+            $this->base_path = '@app/models';
+            $this->namespace = 'app\models';
         }
     }
     
@@ -70,7 +70,7 @@ class PresenterController extends Controller
             $name = $name . 'Presenter';
         }
 
-        $filePath = Yii::getAlias(rtrim($this->base_path, '/')."/{$name}.php");
+        $filePath = Yii::getAlias(rtrim($this->base_path, '/')."/presenters/{$name}.php");
 
         if (file_exists($filePath) && !$this->force) {
             $this->stdout("Presenter `$name` has existed\n", Console::FG_YELLOW);
@@ -80,7 +80,8 @@ class PresenterController extends Controller
         $stub = file_get_contents(__DIR__.'/presenter.stub');
         $content = strtr($stub,[
             '{{namespace}}' => $this->namespace,
-            '{{name}}' => $name.'Presenter',
+            '{{name}}' => $name,
+            '{{entityName}}'=> substr($name, 0, -9)
         ]);
         if (!is_dir(dirname($filePath))) {
             mkdir(dirname($filePath));
