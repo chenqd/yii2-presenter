@@ -48,11 +48,11 @@ class User {
 
 view调用: (实现很简单可以简单翻阅下源码)
 ```
-<h1>hello {{ $user->present()->fullName }}！</h1>
+<h1>hello <?= $user->present()->fullName ?>！</h1>
 or
-<h1>hello {{ $user->present('fullName') }}！</h1>
-hello {{ $user->present('first') }}！
-hello {{ $user->present()->first }}！
+<h1>hello <?= $user->present('fullName') ?>！</h1>
+hello <?= $user->present('first') ?>！
+hello <?= $user->present()->first ?>！
 ```
 
 ## 动态切换persenter
@@ -67,7 +67,7 @@ class User {
     {
         return [
             'default' => UserPresenter::class,
-            'xx' => UserPresenter::class,
+            'api' => UserPresenter::class,
         ];
     }
     
@@ -79,11 +79,13 @@ class User {
 view调用: 
 
 ```
-<h1>hello {{ $user->presenter('xx')->fullName }}！</h1>
+<h1>hello <?= $user->present()->fullName ?>！</h1>
+<h1>hello <?= $user->presenter()->fullName ?>！</h1>
+<h1>hello <?= $user->presenter('api')->fullName ?>！</h1>
 or
-<h1>hello {{ $user->presenter('xx', 'fullName') }}！</h1>
-hello {{ $user->presenter('xx', 'first') }}！
-hello {{ $user->presenter(UserPresenter::class)->first }}！
+<h1>hello <?= $user->presenter('api', 'fullName') ?>！</h1>
+hello <?= $user->presenter('api', 'first') ?>！
+hello <?= $user->presenter(UserPresenter::class)->first ?>！
 ```
 
 ## 脚手架
