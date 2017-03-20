@@ -2,6 +2,8 @@
 
 namespace chenqd\presenter;
 
+use yii\helpers\ArrayHelper;
+
 abstract class BasePresenter {
 
 	/**
@@ -41,6 +43,12 @@ abstract class BasePresenter {
         }
 
         return isset($this->entity->{$property});
+    }
+
+    public function get(...$keys)
+    {
+        $key = implode('.', $keys);
+        return ArrayHelper::getValue($this, $key);
     }
 
 } 

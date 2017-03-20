@@ -6,34 +6,23 @@ use yii\helpers\ArrayHelper;
 
 trait PresentableTrait
 {
-    /**
-     * View presenter instance
-     *
-     * @var mixed
-     */
-    protected $presenterInstance;
-
     protected $presenter;
     private $_presenter_container=[];
 
-    public function getShortClassName()
-    {
-        return substr(strrchr(__CLASS__, "\\"), 1);
-    }
-
     public function presenterMap()
     {
-        return [];
+        if (!$this->presenter) {
+            $this->presenter = __NAMESPACE__.'\\presenters\\'.substr(strrchr(__CLASS__, "\\"), 1).'Presenter';
+        }
+        return [
+            'default' => $this->presenter
+        ];
     }
 
-    public function presenter($presenter_key=null, $key=null, ...$keys)
+    public function presenter($presenter_key='default', $key=null)
     {
-        if (!is_null($key) && $keys) {
-            $key .= '.'.implode('.', $keys);
-        }
-
-        if (is_null($presenter_key)) {
-            return $this->present($key);
+        if (is_array($key)) {
+            $key = implode('.', $key);
         }
 
         if (!isset($this->_presenter_container[$presenter_key])) {
@@ -47,29 +36,11 @@ trait PresentableTrait
     /**
      * Prepare a new or cached presenter instance
      *
+     * @param array $keys
      * @return mixed
-     * @throws PresenterException
      */
-    public function present($key=null, ...$keys)
+    public function present(...$keys)
     {
-        if ( ! $this->presenterInstance)
-        {
-            if (!$this->presenter) {
-                $this->presenter = __NAMESPACE__.'\\presenters\\'.$this->getShortClassName().'Presenter';
-            }
-
-            if ( !class_exists($this->presenter))
-            {
-                throw new PresenterException('Please set the $presenter property to your presenter path.');
-            }
-
-            $this->presenterInstance = new $this->presenter($this);
-        }
-
-        if (!is_null($key) && $keys) {
-            $key .= '.'.implode('.', $keys);
-        }
-
-        return ArrayHelper::getValue($this->presenterInstance, $key);
+        return $this->presenter('default', $keys);
     }
 }

@@ -55,6 +55,37 @@ hello {{ $user->present('first') }}！
 hello {{ $user->present()->first }}！
 ```
 
+## 动态切换persenter
+Model类处理
+```php
+use chenqd\presenter\PresentableTrait;
+
+class User {
+
+    use PresentableTrait;
+    public function presenterMap()
+    {
+        return [
+            'default' => UserPresenter::class,
+            'xx' => UserPresenter::class,
+        ];
+    }
+    
+    public $first = 'php';
+    public $last = 'world';
+}
+```
+
+view调用: 
+
+```
+<h1>hello {{ $user->presenter('xx')->fullName }}！</h1>
+or
+<h1>hello {{ $user->presenter('xx', 'fullName') }}！</h1>
+hello {{ $user->presenter('xx', 'first') }}！
+hello {{ $user->presenter(UserPresenter::class)->first }}！
+```
+
 ## 脚手架
 进入console对应的配置文件添加
 ```php
