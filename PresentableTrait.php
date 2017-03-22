@@ -2,10 +2,12 @@
 
 namespace chenqd\presenter;
 
+use chenqd\mixin\HasMixin;
 use yii\helpers\ArrayHelper;
 
 trait PresentableTrait
 {
+    use HasMixin;
     protected $presenter;
     private $_presenter_container=[];
 
@@ -20,21 +22,15 @@ trait PresentableTrait
         ];
     }
 
+    public function mixinMap() {
+        return [
+            'presenter'=>$this->presenterMap(),
+        ];
+    }
+
     public function presenter($presenter_key='default', $key=null)
     {
-        if (is_array($key)) {
-            $key = implode('.', $key);
-        }
-
-        if (!isset($this->_presenter_container[$presenter_key])) {
-            $class = ArrayHelper::getValue($this->presenterMap(), $presenter_key, $presenter_key);
-            $this->_presenter_container[$presenter_key] = \Yii::createObject($class, [$this]);
-        }
-
-        if (is_null($key)) {
-            return $this->_presenter_container[$presenter_key];
-        }
-        return ArrayHelper::getValue($this->_presenter_container[$presenter_key], $key);
+        return $this->mixinCall('presenter.'.$presenter_key, $key);
     }
 
     /**
